@@ -18,6 +18,7 @@ const useKeyDownEnter = ({
   const responseRowSuccess = (res: AxiosResponse): void => {
     setStateAllRow(res.data)
     setIsLoadingPage(false)
+    setCurrentEditInputOpen(0)
   }
 
   const successUpdateRow = (): void => {

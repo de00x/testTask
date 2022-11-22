@@ -28,7 +28,6 @@ const useRowControls = ({
 }: IUseRowControls) => {
   const successCreateNewRow = (res: AxiosResponse): void => {
     setIdNewSubDir(res.data.current.id)
-
     axios
       .get(`/v1/outlay-rows/entity/${eID}/row/list`)
       .then((res) => responseRowSuccess(res))
@@ -76,7 +75,7 @@ const useRowControls = ({
 
   const deleteCurrentRow = (parentRow: IRowState): void => {
     const rID = parentRow.id !== undefined ? parentRow.id : 0
-    if (isEditedInputCurrentMoment === 0) {
+    if (currentEditInputOpen === 0 && isEditedInputCurrentMoment === 0) {
       axios
         .delete(`/v1/outlay-rows/entity/${eID}/row/${rID}/delete`)
         .then(successUpdateRow)
@@ -90,7 +89,7 @@ const useRowControls = ({
   }
 
   const createNewSubDirectory = (firstChildren: IRowState): void => {
-    if (currentEditInputOpen === 0) {
+    if (currentEditInputOpen === 0 && isEditedInputCurrentMoment === 0) {
       axios
         .post(`/v1/outlay-rows/entity/${eID}/row/create`, {
           equipmentCosts: 0,

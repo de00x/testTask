@@ -11,12 +11,14 @@ import cn from 'classnames'
 import styles from '../MidSubComp.module.scss'
 
 interface IRowSubProps {
-  setInputErrColorRed: React.Dispatch<React.SetStateAction<boolean>>
-  setStateAllRow: React.Dispatch<React.SetStateAction<IRowState[]>>
-  isEditedInputCurrentMoment: number | undefined
-  idNewSubDir: number | undefined
-  inputErrColorRed: boolean
   parentRow: IRowState
+  inputErrColorRed: boolean
+  currentEditInputOpen?: number
+  idNewSubDir: number | undefined
+  isEditedInputCurrentMoment: number | undefined
+  setStateAllRow: React.Dispatch<React.SetStateAction<IRowState[]>>
+  setInputErrColorRed: React.Dispatch<React.SetStateAction<boolean>>
+  setCurrentEditInputOpen: React.Dispatch<React.SetStateAction<number | undefined>>
   setIsEditedInputCurrentMoment: React.Dispatch<React.SetStateAction<number | undefined>>
 }
 
@@ -26,12 +28,13 @@ export const RowSubDirectory: FC<IRowSubProps> = ({
   setStateAllRow,
   inputErrColorRed,
   setInputErrColorRed,
+  currentEditInputOpen,
+  setCurrentEditInputOpen,
   isEditedInputCurrentMoment,
   setIsEditedInputCurrentMoment,
 }): JSX.Element => {
   const [idNewSubSubDir, setIdNewSubSubDir] = useState<number | undefined>(0)
   const [currentControllerActive, setCurrentControllerActive] = useState<number | undefined>(0)
-  const [currentEditInputOpen, setCurrentEditInputOpen] = useState<number | undefined>(0)
   const [rowSubState, setRowSubState] = useState<IChildren>({
     estimatedProfit: '',
     equipmentCosts: '',
@@ -64,6 +67,7 @@ export const RowSubDirectory: FC<IRowSubProps> = ({
   const { createNewSubSubDirectory, deleteCurrentRow, openEditInput } = useRowSubControls({
     isEditedInputCurrentMoment,
     setCurrentEditInputOpen,
+    currentEditInputOpen,
     setInputErrColorRed,
     setIdNewSubSubDir,
     setStateAllRow,

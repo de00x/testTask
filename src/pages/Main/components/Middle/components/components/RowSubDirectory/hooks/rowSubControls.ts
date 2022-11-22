@@ -4,6 +4,7 @@ import { eID } from '../../../MiddleRows'
 
 interface IUseRowSubControls {
   rowSubState: IChildren
+  currentEditInputOpen?: number
   isEditedInputCurrentMoment?: number
   setRowSubState: React.Dispatch<React.SetStateAction<IChildren>>
   setStateAllRow: React.Dispatch<React.SetStateAction<IRowState[]>>
@@ -17,12 +18,13 @@ const useRowSubControls = ({
   setRowSubState,
   setStateAllRow,
   setIdNewSubSubDir,
+  currentEditInputOpen,
   setInputErrColorRed,
   setCurrentEditInputOpen,
   isEditedInputCurrentMoment,
 }: IUseRowSubControls) => {
   const openEditInput = (firstChildren: IChildren): void => {
-    if (isEditedInputCurrentMoment === 0) {
+    if (currentEditInputOpen === 0 && isEditedInputCurrentMoment === 0) {
       setCurrentEditInputOpen(firstChildren.id)
       setRowSubState({ ...rowSubState, ...firstChildren })
     } else {
@@ -34,7 +36,7 @@ const useRowSubControls = ({
   }
 
   const createNewSubSubDirectory = (firstChildren: IChildren): void => {
-    if (isEditedInputCurrentMoment === 0) {
+    if (currentEditInputOpen === 0 && isEditedInputCurrentMoment === 0) {
       axios
         .post(`/v1/outlay-rows/entity/${eID}/row/create`, {
           equipmentCosts: 0,

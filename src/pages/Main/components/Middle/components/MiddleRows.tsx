@@ -68,6 +68,7 @@ export const MiddleRows: FC = (): JSX.Element => {
       isEditedInputCurrentMoment,
     })
   /// functions ///
+  console.log('currentEditInputOpen', currentEditInputOpen)
 
   return (
     <div className={styles.middleRowsWrapper}>
@@ -218,6 +219,8 @@ export const MiddleRows: FC = (): JSX.Element => {
                 setStateAllRow={setStateAllRow}
                 inputErrColorRed={inputErrColorRed}
                 setInputErrColorRed={setInputErrColorRed}
+                currentEditInputOpen={currentEditInputOpen}
+                setCurrentEditInputOpen={setCurrentEditInputOpen}
                 isEditedInputCurrentMoment={isEditedInputCurrentMoment}
                 setIsEditedInputCurrentMoment={setIsEditedInputCurrentMoment}
               />
