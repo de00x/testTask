@@ -4,6 +4,7 @@ import { IRowState } from '../MiddleRow.types'
 interface IUseRowControls {
   eID: string
   rowState: IRowState
+  currentEditInputOpen?: number
   isEditedInputCurrentMoment?: number
   setRowState: React.Dispatch<React.SetStateAction<IRowState>>
   setIsLoadingPage: React.Dispatch<React.SetStateAction<boolean>>
@@ -21,11 +22,13 @@ const useRowControls = ({
   setIdNewSubDir,
   setIsLoadingPage,
   setInputErrColorRed,
+  currentEditInputOpen,
   setCurrentEditInputOpen,
   isEditedInputCurrentMoment,
 }: IUseRowControls) => {
   const successCreateNewRow = (res: AxiosResponse): void => {
     setIdNewSubDir(res.data.current.id)
+
     axios
       .get(`/v1/outlay-rows/entity/${eID}/row/list`)
       .then((res) => responseRowSuccess(res))
@@ -87,7 +90,7 @@ const useRowControls = ({
   }
 
   const createNewSubDirectory = (firstChildren: IRowState): void => {
-    if (isEditedInputCurrentMoment === 0) {
+    if (currentEditInputOpen === 0) {
       axios
         .post(`/v1/outlay-rows/entity/${eID}/row/create`, {
           equipmentCosts: 0,

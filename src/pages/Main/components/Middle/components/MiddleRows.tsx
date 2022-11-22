@@ -16,7 +16,7 @@ export const MiddleRows: FC = (): JSX.Element => {
   const [currentEditInputOpen, setCurrentEditInputOpen] = useState<number | undefined>(0)
   const [currentControllerActive, setCurrentControllerActive] = useState<number | undefined>(0)
   const [isEditedInputCurrentMoment, setIsEditedInputCurrentMoment] = useState<number | undefined>(
-    0
+    currentEditInputOpen
   )
   const [idNewSubDir, setIdNewSubDir] = useState<number | undefined>(0)
   const [stateAllRow, setStateAllRow] = useState<IRowState[]>([])
@@ -63,6 +63,7 @@ export const MiddleRows: FC = (): JSX.Element => {
       setIdNewSubDir,
       setIsLoadingPage,
       setInputErrColorRed,
+      currentEditInputOpen,
       setCurrentEditInputOpen,
       isEditedInputCurrentMoment,
     })
