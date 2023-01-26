@@ -1,0 +1,118 @@
+.middleRowsWrapper,
+.rowSubDirectoryWrapper {
+  width: 100%;
+  padding: 0rem 1rem;
+}
+.middleRowsContainer {
+  position: relative;
+}
+.middleRow,
+.middleRowSubDirectory {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 2rem;
+  padding-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  color: #fff;
+  border-bottom: 1px solid #414144;
+}
+.middleRow {
+  border-bottom: 1px solid #87878e;
+}
+.middleRowBlockOne,
+.subDirectoryBlockOne {
+  display: flex;
+  width: 50%;
+  & div:nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+}
+.parentRowImgControllers {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 0.3rem;
+  min-width: 6.5rem;
+  height: 1.8rem;
+  margin-right: 1rem;
+  padding-left: 0.3rem;
+  & svg {
+    cursor: pointer;
+  }
+}
+.parentRowImgControllersActive,
+.subRowImgControllersActive,
+.subSubRowImgControllersActive {
+  justify-content: space-around;
+  padding-left: 0rem;
+  background-color: #414144;
+}
+.rowNameTextContainer {
+  width: 100%;
+  margin-left: 1.3rem;
+  cursor: pointer;
+}
+.rowNameText,
+.rowSalaryText,
+.equipmentText,
+.overheadsText,
+.profitText {
+  width: 80%;
+  padding-left: 0.2rem;
+  color: #fff;
+}
+.inputRowName {
+  width: 100%;
+  height: 2rem;
+  border-radius: 0.3rem;
+  padding: 0rem 1rem;
+  color: #71717a;
+  border: 1px solid #414144;
+  background-color: #27272a00;
+  transition: 0.1s border-color ease-in-out;
+  &:focus {
+    border-color: #5d5d61;
+  }
+}
+.middleRowBlockTwo,
+.subDirectoryBlockTwo {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  padding-left: 1.5rem;
+}
+.rowBlockSalary,
+.rowBlockEquipmentCosts,
+.rowBlockOverheads,
+.rowBlockEstimatedProfit {
+  width: 25%;
+}
+.inputSalary,
+.inputEquipmentCosts,
+.inputOverheads,
+.inputEstimatedProfit {
+  width: 90%;
+  height: 2rem;
+  border-radius: 0.3rem;
+  padding: 0rem 1rem;
+  color: #71717a;
+  border: 1px solid #414144;
+  background-color: #27272a00;
+  transition: 0.1s border-color ease-in-out;
+  &:focus {
+    border-color: #5d5d61;
+  }
+}
+
+.inputErrColorRed {
+  & input {
+    transition: border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+    border-color: red;
+    color: red;
+    &::placeholder {
+      color: red;
+    }
+  }
+}

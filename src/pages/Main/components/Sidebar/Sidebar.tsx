@@ -1,6 +1,6 @@
 import { SidebarHeader, SidebarProjects } from './components'
+import styles from './styles/Sidebar.module.scss'
 import { FC } from 'react'
-import styles from './Sidebar.module.scss'
 
 export const Sidebar: FC = (): JSX.Element => {
   return (

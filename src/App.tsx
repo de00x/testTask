@@ -1,12 +1,8 @@
-import { FC } from 'react'
 import { Main } from './pages/Main'
+import { FC } from 'react'
 
 const App: FC = (): JSX.Element => {
-  return (
-    <div>
-      <Main />
-    </div>
-  )
+  return <Main />
 }
 
 export default App

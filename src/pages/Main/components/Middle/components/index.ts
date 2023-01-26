@@ -1,2 +1,2 @@
-export { MiddleHeader } from './MiddleHeader'
-export { MiddleRows } from './MiddleRows'
+export { MiddleHeader } from './MiddleHeader/MiddleHeader'
+export { MiddleRows } from './MiddleRows/MiddleRows'
