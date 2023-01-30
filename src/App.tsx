@@ -1,8 +1,13 @@
-import { Main } from './pages/Main'
+import { Header, Main } from './components'
 import { FC } from 'react'
 
 const App: FC = (): JSX.Element => {
-  return <Main />
+  return (
+    <>
+      <Header />
+      <Main />
+    </>
+  )
 }
 
 export default App

@@ -1,1 +1,0 @@
-export { Middle } from './Middle'

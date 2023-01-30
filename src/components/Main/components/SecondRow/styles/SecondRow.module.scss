@@ -1,0 +1,68 @@
+.secondRowWrapper {
+  // padding: 0rem 1rem;
+}
+.secondRowContainer {
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  border-bottom: 1px solid rgb(120, 120, 120);
+}
+.secondRowInputError {
+  & input {
+    transition: 0.3s border-color ease-in-out;
+    border-color: red !important;
+  }
+}
+.leftBlock {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  padding: 0rem 1rem;
+  padding-left: 2rem;
+  color: #fff;
+}
+.rightBlock {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  color: #fff;
+  & div {
+    width: 25%;
+    & input {
+      width: 90%;
+      height: 2rem;
+      border-radius: 0.5rem;
+      padding: 0rem 1rem;
+      color: rgb(87, 87, 87);
+      background-color: #fff0;
+      border: 1px solid rgb(67, 67, 67);
+    }
+  }
+}
+.svgChoiceContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  min-width: 3.5rem;
+  height: 1.7rem;
+  border-radius: 1rem;
+  margin-right: 2.3rem;
+  & svg {
+    cursor: pointer;
+  }
+}
+.svgChoiceContainerActive {
+  background-color: rgba(204, 204, 204, 0.39);
+}
+.rowNameContainer {
+  width: 100%;
+  & input {
+    width: 95%;
+    height: 2rem;
+    border-radius: 0.5rem;
+    padding: 0rem 1rem;
+    color: rgb(87, 87, 87);
+    background-color: #fff0;
+    border: 1px solid rgb(67, 67, 67);
+  }
+}

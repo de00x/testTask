@@ -1,0 +1,30 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border-bottom: 0.1px solid rgb(120, 120, 120);
+  & svg {
+    cursor: pointer;
+    margin-right: 1.5rem;
+  }
+}
+.viewingText {
+  display: flex;
+  position: relative;
+  font-size: 15px;
+  margin: 0rem 1.5rem 0rem 0.5rem;
+  color: #fff;
+  cursor: pointer;
+  & span {
+    position: absolute;
+    width: 100%;
+    bottom: -1rem;
+    border-bottom: 2px solid #fff;
+  }
+}
+.managementText {
+  font-size: 15px;
+  color: rgb(120, 120, 120);
+  cursor: pointer;
+}
