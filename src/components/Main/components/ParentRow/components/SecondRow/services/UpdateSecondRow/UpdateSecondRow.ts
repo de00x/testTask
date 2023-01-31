@@ -1,7 +1,9 @@
 import { ISecondRowControllProps } from '../types/SecRowControll.types'
 import axios, { AxiosResponse } from 'axios'
-
-const eID = process.env.REACT_APP_ID as string
+import {
+  eID,
+  reqDefaultData,
+} from '../../../../../../../../components/Main/components/ParentRow/ParentRow'
 
 const UpdateSecondRow = (props: ISecondRowControllProps) => {
   const onKeyEnter = (e: React.KeyboardEvent, rID: number) => {
@@ -9,16 +11,12 @@ const UpdateSecondRow = (props: ISecondRowControllProps) => {
     if (e.code === 'Enter') {
       axios
         .post(`/v1/outlay-rows/entity/${eID}/row/${rID}/update`, {
+          ...reqDefaultData,
           equipmentCosts: props.rowEditingData.equipmentCosts,
           estimatedProfit: props.rowEditingData.estimatedProfit,
-          machineOperatorSalary: 0,
-          mainCosts: 0,
-          materials: 0,
-          mimExploitation: 0,
           overheads: props.rowEditingData.overheads,
           rowName: props.rowEditingData.rowName,
           salary: props.rowEditingData.salary,
-          supportCosts: 0,
         })
         .then((res) => {
           successFulChangeData(res)
@@ -26,29 +24,20 @@ const UpdateSecondRow = (props: ISecondRowControllProps) => {
         .catch(() => errChangeData(rID))
     }
     const successFulChangeData = (res: AxiosResponse) => {
-      const currentParentRow = props.parentRowData.find(
-        (parentRow) => parentRow.id === props.parentRowID
-      )
-      const newSecondRow = currentParentRow?.child.map((secondRow) =>
-        secondRow.id === res.data.current.id
-          ? {
-              ...secondRow,
-              rowName: res.data.current.rowName,
-              salary: res.data.current.salary,
-              equipmentCosts: res.data.current.equipmentCosts,
-              overheads: res.data.current.overheads,
-              estimatedProfit: res.data.current.estimatedProfit,
-            }
-          : secondRow
-      )
-      const newSecondRowToObject = newSecondRow?.find(
-        (newSecondRow) => newSecondRow.id === res.data.current.id
-      )
-
-      // console.log('currentParentRow', currentParentRow)
-      console.log('newSecondRow', newSecondRow)
-      console.log('newSecondRowToObject', newSecondRowToObject)
-
+      props.setParentRowData((prev) => {
+        const currentParentRow = prev.find((parentRow) => parentRow.id === props.parentRowID)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const currentSecondRow: any = currentParentRow?.child.find(
+          (secondRow) => secondRow.id === res.data.current.id
+        )
+        if (currentSecondRow !== undefined) {
+          const { current } = res.data
+          for (const key in current) {
+            currentSecondRow[key] = current[key]
+          }
+        }
+        return prev
+      })
       props.setCurrentEditingRow(0)
       props.setCurrentErrRow(0)
     }

@@ -18,7 +18,6 @@ interface IParentRowData {
 }
 interface ISecondRowControllProps {
   parentRowID: number
-  parentRowData: IParentRowData[]
   setCurrentErrRow: React.Dispatch<React.SetStateAction<number>>
   setCurrentEditingRow: React.Dispatch<React.SetStateAction<number>>
   setParentRowData: React.Dispatch<React.SetStateAction<IParentRowData[]>>

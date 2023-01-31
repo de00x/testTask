@@ -1,5 +1,5 @@
 import { ICreateParRowControllProps } from '../types/CreateParentRow.types'
-import { eID } from '../../../ParentRow'
+import { eID, reqDefaultData } from '../../../ParentRow'
 import axios from 'axios'
 
 const CreateParRowControllers = (props: ICreateParRowControllProps) => {
@@ -7,17 +7,13 @@ const CreateParRowControllers = (props: ICreateParRowControllProps) => {
     if (e.code === 'Enter') {
       axios
         .post(`/v1/outlay-rows/entity/${eID}/row/create`, {
+          ...reqDefaultData,
           equipmentCosts: props.rowEditingData.equipmentCosts,
           estimatedProfit: props.rowEditingData.estimatedProfit,
-          machineOperatorSalary: 0,
-          mainCosts: 0,
-          materials: 0,
-          mimExploitation: 0,
           overheads: props.rowEditingData.overheads,
           parentId: null,
           rowName: props.rowEditingData.rowName,
           salary: props.rowEditingData.salary,
-          supportCosts: 0,
         })
         .then((res) => props.setParentRowData([...props.parentRowData, res.data.current]))
         .catch(() => errCreatedParentRow())

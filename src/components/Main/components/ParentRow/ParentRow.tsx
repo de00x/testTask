@@ -1,11 +1,10 @@
 import { ParentRowControllers, ParentRowService, UpdateParentRow } from './services'
 import { ReactComponent as TrashRow } from './img/trashRow.svg'
 import { ReactComponent as EditRow } from './img/editRow.svg'
+import { CreateParentRow, SecondRow } from './components'
 import { IParentRowData } from './types/ParentRow.types'
 import styles from './styles/ParentRow.module.scss'
-import { CreateParentRow } from './components'
-import { SecondRow } from '../SecondRow'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 import cn from 'classnames'
 import {
   InputSalary,
@@ -14,8 +13,20 @@ import {
   InputEstProfit,
   InputEquipCosts,
 } from '../RowInputs'
-import axios from 'axios'
 
+export const reqDefaultData = {
+  equipmentCosts: 0,
+  estimatedProfit: 0,
+  machineOperatorSalary: 0,
+  mainCosts: 0,
+  materials: 0,
+  mimExploitation: 0,
+  overheads: 0,
+  parentId: null,
+  rowName: '',
+  salary: 0,
+  supportCosts: 0,
+}
 export const eID = process.env.REACT_APP_ID as string
 
 export const ParentRow: FC = (): JSX.Element => {
@@ -30,14 +41,13 @@ export const ParentRow: FC = (): JSX.Element => {
     equipmentCosts: '0',
     estimatedProfit: '0',
   })
-  console.log('parentRowData', parentRowData)
 
   /// useEffects ///
   ParentRowService.GetAllRows(setParentRowData)
   /// useEffects ///
 
   /// controllers ///
-  const { deleteRow, onDoubleClickRow } = ParentRowControllers({
+  const { deleteRow, onDoubleClickRow, createSecondRow } = ParentRowControllers({
     rowEditingData,
     setParentRowData,
     setRowEditingData,
@@ -50,24 +60,7 @@ export const ParentRow: FC = (): JSX.Element => {
     setCurrentEditingRow,
   })
   /// controllers ///
-  // useEffect(() => {
-  //   axios
-  //     .post(`/v1/outlay-rows/entity/${eID}/row/create`, {
-  //       equipmentCosts: 0,
-  //       estimatedProfit: 0,
-  //       machineOperatorSalary: 0,
-  //       mainCosts: 0,
-  //       materials: 0,
-  //       mimExploitation: 0,
-  //       overheads: 0,
-  //       parentId: 25851,
-  //       rowName: 'second row',
-  //       salary: 0,
-  //       supportCosts: 0,
-  //     })
-  //     .then((res) => console.log('res', res))
-  //     .catch((err) => console.log('err', err))
-  // }, [])
+
   return (
     <>
       {parentRowData.length !== 0 ? (
@@ -88,7 +81,7 @@ export const ParentRow: FC = (): JSX.Element => {
                     onMouseEnter={() => setIsTrashRow(parentRow.id)}
                     onMouseLeave={() => setIsTrashRow(0)}
                   >
-                    <EditRow />
+                    <EditRow onClick={() => createSecondRow(parentRow.id)} />
                     {parentRow.id === isTrashRow && (
                       <TrashRow onClick={() => deleteRow(parentRow.id)} />
                     )}
@@ -155,8 +148,9 @@ export const ParentRow: FC = (): JSX.Element => {
                   key={secondRow.id}
                   secondRow={secondRow}
                   parentRowID={parentRow.id}
-                  parentRowData={parentRowData}
                   setParentRowData={setParentRowData}
+                  currentEditingRow={currentEditingRow}
+                  setCurrentEditingRow={setCurrentEditingRow}
                 />
               ))}
             </div>

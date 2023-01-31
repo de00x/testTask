@@ -1,7 +1,9 @@
 import { ReactComponent as TrashRow } from './img/trashRow.svg'
 import { ReactComponent as EditRow } from './img/editRow.svg'
 import { ISecondRowProps } from './types/SecondRow.types'
+import { ParentRowControllers } from '../../services'
 import styles from './styles/SecondRow.module.scss'
+import { UpdateSecondRow } from './services'
 import { FC, useState } from 'react'
 import cn from 'classnames'
 import {
@@ -10,17 +12,17 @@ import {
   InputOverheads,
   InputEstProfit,
   InputEquipCosts,
-} from '../RowInputs'
-import { ParentRowControllers } from '../ParentRow/services'
-import { UpdateSecondRow } from './services'
+} from '../../../RowInputs'
+import axios from 'axios'
+import { eID } from '../../ParentRow'
 
 export const SecondRow: FC<ISecondRowProps> = ({
   secondRow,
   parentRowID,
-  parentRowData,
   setParentRowData,
+  currentEditingRow,
+  setCurrentEditingRow,
 }): JSX.Element => {
-  const [currentEditingRow, setCurrentEditingRow] = useState(0)
   const [currentErrRow, setCurrentErrRow] = useState(0)
   const [isTrashRow, setIsTrashRow] = useState(0)
   const [rowEditingData, setRowEditingData] = useState({
@@ -32,7 +34,7 @@ export const SecondRow: FC<ISecondRowProps> = ({
   })
 
   /// controllers ///
-  const { deleteRow, onDoubleClickRow } = ParentRowControllers({
+  const { onDoubleClickRow } = ParentRowControllers({
     rowEditingData,
     setParentRowData,
     setRowEditingData,
@@ -40,16 +42,32 @@ export const SecondRow: FC<ISecondRowProps> = ({
   })
   const { onKeyEnter } = UpdateSecondRow({
     parentRowID,
-    parentRowData,
     rowEditingData,
     setParentRowData,
     setCurrentErrRow,
     setCurrentEditingRow,
   })
+  const deleteRow = (rID: number) => {
+    axios.delete(`/v1/outlay-rows/entity/${eID}/row/${rID}/delete`).then(
+      () => successFulDeleteRow(),
+      (err) => console.log('err', err)
+    )
+    const successFulDeleteRow = () => {
+      setParentRowData((prev) => {
+        prev
+          .find((parentRow) => parentRow.id === parentRowID)
+          ?.child.filter((secondRow) => secondRow.id !== rID)
+
+        return prev
+      })
+    }
+  }
   /// controllers ///
 
   return (
     <div className={styles.secondRowWrapper}>
+      <div className={styles.verticalLine}></div>
+      <div className={styles.horizontalLine}></div>
       <div
         className={cn(styles.secondRowContainer, {
           [styles.secondRowInputError]: currentErrRow === secondRow.id,

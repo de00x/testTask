@@ -1,5 +1,24 @@
 .secondRowWrapper {
-  // padding: 0rem 1rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+.verticalLine,
+.horizontalLine {
+  display: flex;
+  position: absolute;
+}
+.verticalLine {
+  left: 2.3%;
+  bottom: 50%;
+  height: 100%;
+  border-left: 1px solid #fff;
+}
+.horizontalLine {
+  width: 0.8rem;
+  left: 2.4%;
+  bottom: 49%;
+  border-bottom: 1px solid #fff;
 }
 .secondRowContainer {
   display: flex;

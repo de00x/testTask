@@ -1,9 +1,10 @@
-import { IParentRowData, ISecondRowData } from '../../ParentRow/types/ParentRow.types'
+import { IParentRowData, ISecondRowData } from '../../../types/ParentRow.types'
 
 interface ISecondRowProps {
   parentRowID: number
+  currentEditingRow: number
   secondRow: ISecondRowData
-  parentRowData: IParentRowData[]
+  setCurrentEditingRow: React.Dispatch<React.SetStateAction<number>>
   setParentRowData: React.Dispatch<React.SetStateAction<IParentRowData[]>>
 }
 
