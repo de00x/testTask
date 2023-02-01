@@ -1,9 +1,9 @@
+import { IParentRowData, IRowEditingData } from '../../../../types/ParentRow/ParentRow.types'
 import { ParentRowControllers, ParentRowService, UpdateParentRow } from './services'
-import { ReactComponent as TrashRow } from './img/trashRow.svg'
-import { ReactComponent as EditRow } from './img/editRow.svg'
-import { CreateParentRow, SecondRow } from './components'
-import { IParentRowData } from './types/ParentRow.types'
+import { ReactComponent as TrashRow } from '../../../../img/Rows/trashRow.svg'
+import { ReactComponent as EditRow } from '../../../../img/Rows/editRow.svg'
 import styles from './styles/ParentRow.module.scss'
+import { CreateParentRow, SecondRow } from '../'
 import { FC, useState } from 'react'
 import cn from 'classnames'
 import {
@@ -30,11 +30,11 @@ export const reqDefaultData = {
 export const eID = process.env.REACT_APP_ID as string
 
 export const ParentRow: FC = (): JSX.Element => {
-  const [parentRowData, setParentRowData] = useState<IParentRowData[]>([])
-  const [currentEditingRow, setCurrentEditingRow] = useState(0)
-  const [currentErrRow, setCurrentErrRow] = useState(0)
   const [isTrashRow, setIsTrashRow] = useState(0)
-  const [rowEditingData, setRowEditingData] = useState({
+  const [currentErrRow, setCurrentErrRow] = useState(0)
+  const [currentEditingRow, setCurrentEditingRow] = useState(0)
+  const [parentRowData, setParentRowData] = useState<IParentRowData[]>([])
+  const [rowEditingData, setRowEditingData] = useState<IRowEditingData>({
     rowName: '',
     salary: '0',
     overheads: '0',
@@ -49,8 +49,10 @@ export const ParentRow: FC = (): JSX.Element => {
   /// controllers ///
   const { deleteRow, onDoubleClickRow, createSecondRow } = ParentRowControllers({
     rowEditingData,
+    setCurrentErrRow,
     setParentRowData,
     setRowEditingData,
+    currentEditingRow,
     setCurrentEditingRow,
   })
   const { onKeyEnter } = UpdateParentRow({
@@ -143,12 +145,18 @@ export const ParentRow: FC = (): JSX.Element => {
                   </div>
                 </div>
               </div>
-              {parentRow.child?.map((secondRow) => (
+              {parentRow?.child?.map((secondRow) => (
                 <SecondRow
                   key={secondRow.id}
                   secondRow={secondRow}
+                  isTrashRow={isTrashRow}
                   parentRowID={parentRow.id}
+                  setIsTrashRow={setIsTrashRow}
+                  currentErrRow={currentErrRow}
+                  rowEditingData={rowEditingData}
+                  setCurrentErrRow={setCurrentErrRow}
                   setParentRowData={setParentRowData}
+                  setRowEditingData={setRowEditingData}
                   currentEditingRow={currentEditingRow}
                   setCurrentEditingRow={setCurrentEditingRow}
                 />

@@ -1,5 +1,5 @@
-import { ReactComponent as SidebarSquare } from './img/sidebarSquare.svg'
-import { ReactComponent as ArrowBot } from './img/arrowBot.svg'
+import { ReactComponent as SidebarSquare } from '../../../../img/Sidebar/sidebarSquare.svg'
+import { ReactComponent as ArrowBot } from '../../../../img/Sidebar/arrowBot.svg'
 import styles from './styles/Sidebar.module.scss'
 import { FC } from 'react'
 

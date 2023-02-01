@@ -1,4 +1,4 @@
-import { IParentRowData } from '../../types/ParentRow.types'
+import { IParentRowData } from '../../../../../../types/ParentRow/ParentRow.types'
 import { eID } from '../../ParentRow'
 import { useEffect } from 'react'
 import axios from 'axios'

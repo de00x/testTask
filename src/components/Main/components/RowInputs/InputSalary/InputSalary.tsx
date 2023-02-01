@@ -1,4 +1,4 @@
-import { IInputRowProps } from '../types/RowInputs.types'
+import { IInputRowProps } from '../../../../../types/RowInputs/RowInputs.types'
 import { FC } from 'react'
 
 export const InputSalary: FC<IInputRowProps> = (props): JSX.Element => {

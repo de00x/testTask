@@ -1,3 +1,6 @@
+export { CreateParentRow } from './CreateParentRow/CreateParentRow'
 export { MiddleHeader } from './MiddleHeader/MiddleHeader'
 export { ParentRow } from './ParentRow/ParentRow'
+export { SecondRow } from './SecondRow/SecondRow'
+export { ThirdRow } from './ThirdRow/ThirdRow'
 export { Sidebar } from './Sidebar/Sidebar'

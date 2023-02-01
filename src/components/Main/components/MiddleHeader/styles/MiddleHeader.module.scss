@@ -44,3 +44,16 @@
     font-size: 15px;
   }
 }
+
+/// Media ///
+@media (max-width: 1454px) {
+  .rowTitleContainer {
+    height: 3.5rem;
+  }
+}
+@media (max-width: 1550px) {
+  .rightBlock div:nth-child(3) {
+    margin-right: 0.5rem;
+  }
+}
+/// Media ///

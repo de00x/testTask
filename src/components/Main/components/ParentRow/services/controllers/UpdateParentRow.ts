@@ -1,4 +1,4 @@
-import { IUpdateParentRowProps } from '../types/ParRowControl.types'
+import { IUpdateParentRowProps } from '../../../../../../types/ParentRowControllers/ParRowControl.types'
 import { eID, reqDefaultData } from '../../ParentRow'
 import axios, { AxiosResponse } from 'axios'
 
