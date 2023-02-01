@@ -1,6 +1,6 @@
 import { IUpdateParentRowProps } from '../types/ParRowControl.types'
+import { eID, reqDefaultData } from '../../ParentRow'
 import axios, { AxiosResponse } from 'axios'
-import { eID } from '../../ParentRow'
 
 const UpdateParentRow = (props: IUpdateParentRowProps) => {
   const onKeyEnter = (e: React.KeyboardEvent, rID: number) => {
@@ -8,16 +8,12 @@ const UpdateParentRow = (props: IUpdateParentRowProps) => {
     if (e.code === 'Enter') {
       axios
         .post(`/v1/outlay-rows/entity/${eID}/row/${rID}/update`, {
+          ...reqDefaultData,
           equipmentCosts: props.rowEditingData.equipmentCosts,
           estimatedProfit: props.rowEditingData.estimatedProfit,
-          machineOperatorSalary: 0,
-          mainCosts: 0,
-          materials: 0,
-          mimExploitation: 0,
           overheads: props.rowEditingData.overheads,
           rowName: props.rowEditingData.rowName,
           salary: props.rowEditingData.salary,
-          supportCosts: 0,
         })
         .then((res) => {
           successFulChangeData(res)
@@ -25,16 +21,17 @@ const UpdateParentRow = (props: IUpdateParentRowProps) => {
         .catch(() => errChangeData(rID))
     }
     const successFulChangeData = (res: AxiosResponse) => {
+      const { current } = res.data
       props.setParentRowData((prev) =>
         prev.map((parentRow) =>
-          parentRow.id === res.data.current.id
+          parentRow.id === current.id
             ? {
                 ...parentRow,
-                rowName: res.data.current.rowName,
-                salary: res.data.current.salary,
-                equipmentCosts: res.data.current.equipmentCosts,
-                overheads: res.data.current.overheads,
-                estimatedProfit: res.data.current.estimatedProfit,
+                rowName: current.rowName,
+                salary: current.salary,
+                equipmentCosts: current.equipmentCosts,
+                overheads: current.overheads,
+                estimatedProfit: current.estimatedProfit,
               }
             : parentRow
         )

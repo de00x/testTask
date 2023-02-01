@@ -1,1 +1,1 @@
-export { default as UpdateSecondRow } from './UpdateSecondRow/UpdateSecondRow'
+export { default as SecondRowControllers } from './SecondRowControllers/SecRowControllers'

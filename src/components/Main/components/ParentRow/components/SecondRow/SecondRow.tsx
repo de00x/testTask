@@ -3,7 +3,7 @@ import { ReactComponent as EditRow } from './img/editRow.svg'
 import { ISecondRowProps } from './types/SecondRow.types'
 import { ParentRowControllers } from '../../services'
 import styles from './styles/SecondRow.module.scss'
-import { UpdateSecondRow } from './services'
+import { SecondRowControllers } from './services'
 import { FC, useState } from 'react'
 import cn from 'classnames'
 import {
@@ -13,8 +13,6 @@ import {
   InputEstProfit,
   InputEquipCosts,
 } from '../../../RowInputs'
-import axios from 'axios'
-import { eID } from '../../ParentRow'
 
 export const SecondRow: FC<ISecondRowProps> = ({
   secondRow,
@@ -40,28 +38,13 @@ export const SecondRow: FC<ISecondRowProps> = ({
     setRowEditingData,
     setCurrentEditingRow,
   })
-  const { onKeyEnter } = UpdateSecondRow({
+  const { onKeyEnter, deleteSecondRow } = SecondRowControllers({
     parentRowID,
     rowEditingData,
     setParentRowData,
     setCurrentErrRow,
     setCurrentEditingRow,
   })
-  const deleteRow = (rID: number) => {
-    axios.delete(`/v1/outlay-rows/entity/${eID}/row/${rID}/delete`).then(
-      () => successFulDeleteRow(),
-      (err) => console.log('err', err)
-    )
-    const successFulDeleteRow = () => {
-      setParentRowData((prev) => {
-        prev
-          .find((parentRow) => parentRow.id === parentRowID)
-          ?.child.filter((secondRow) => secondRow.id !== rID)
-
-        return prev
-      })
-    }
-  }
   /// controllers ///
 
   return (
@@ -83,7 +66,9 @@ export const SecondRow: FC<ISecondRowProps> = ({
             onMouseLeave={() => setIsTrashRow(0)}
           >
             <EditRow />
-            {secondRow.id === isTrashRow && <TrashRow onClick={() => deleteRow(secondRow.id)} />}
+            {secondRow.id === isTrashRow && (
+              <TrashRow onClick={() => deleteSecondRow(secondRow.id)} />
+            )}
           </div>
           <div className={styles.rowNameContainer} onKeyDown={(e) => onKeyEnter(e, secondRow.id)}>
             {currentEditingRow === secondRow.id ? (

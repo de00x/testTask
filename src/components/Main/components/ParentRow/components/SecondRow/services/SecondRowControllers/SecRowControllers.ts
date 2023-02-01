@@ -1,11 +1,8 @@
 import { ISecondRowControllProps } from '../types/SecRowControll.types'
+import { eID, reqDefaultData } from '../../../../ParentRow'
 import axios, { AxiosResponse } from 'axios'
-import {
-  eID,
-  reqDefaultData,
-} from '../../../../../../../../components/Main/components/ParentRow/ParentRow'
 
-const UpdateSecondRow = (props: ISecondRowControllProps) => {
+const SecondRowControllers = (props: ISecondRowControllProps) => {
   const onKeyEnter = (e: React.KeyboardEvent, rID: number) => {
     if (e.code === 'Escape') props.setCurrentEditingRow(0)
     if (e.code === 'Enter') {
@@ -48,7 +45,22 @@ const UpdateSecondRow = (props: ISecondRowControllProps) => {
       }, 5000)
     }
   }
-  return { onKeyEnter }
+  const deleteSecondRow = (rID: number) => {
+    axios.delete(`/v1/outlay-rows/entity/${eID}/row/${rID}/delete`).then(
+      () => successFulDeleteRow(),
+      (err) => console.log('err', err)
+    )
+    const successFulDeleteRow = () => {
+      props.setParentRowData((prev) =>
+        prev.map((parentRow) =>
+          parentRow.id === props.parentRowID
+            ? { ...parentRow, child: parentRow.child.filter((secondRow) => secondRow.id !== rID) }
+            : parentRow
+        )
+      )
+    }
+  }
+  return { onKeyEnter, deleteSecondRow }
 }
 
-export default UpdateSecondRow
+export default SecondRowControllers
