@@ -62,7 +62,17 @@ const ThirdRowControllers = (props: IThirdRowControllProps) => {
       props.setParentRowData((prev) =>
         prev.map((parentRow) =>
           parentRow.id === props.parentRowID
-            ? { ...parentRow, child: parentRow.child.filter((secondRow) => secondRow.id !== rID) }
+            ? {
+                ...parentRow,
+                child: parentRow.child.map((secondRow) =>
+                  secondRow.id === props.secondRowID
+                    ? {
+                        ...secondRow,
+                        child: secondRow.child.filter((thirdRow) => thirdRow.id !== rID),
+                      }
+                    : secondRow
+                ),
+              }
             : parentRow
         )
       )
